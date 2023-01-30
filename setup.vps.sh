@@ -223,7 +223,7 @@ while true; do
   cp orange "press: 0 for : Setup freshly installed system"
   cp orange "press: 1 for : Update system"
   cp orange "press: 2 for : Install prerequisite packages (curl git nano neovim ...)"
-  cp orange "press: 3 for : Create new user"
+  cp orange "press: 3 for : Create new user (recommended to avoid using root user)"
   cp orange "press: 4 for : Change user password"
   cp orange "press: 5 for : Delete existing user"
   cp orange "press: 6 for : Add user to group"
