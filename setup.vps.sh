@@ -200,6 +200,7 @@ setup_fresh_install(){
 }
 
 while true; do
+  echo "\n\n"
   cp red "This script is only for ubuntu based systems."
   cp red "Running in systems other than ubuntu may or may not work properly"; echo '\n';
   cp orange "press: 0 for : Setup freshly installed system"
