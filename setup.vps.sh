@@ -90,14 +90,14 @@ add_user_to_group(){
   cp cyan "Show human  created users (press: h)"
   read _showUsers
   if [ "$_showUsers" = "A" ] || [ "$_showUsers" = "a" ]; then
-    cp gray "showing all users,  seperated by comma(,)"
-    getent passwd | cut -d: -f1 | tr '\n' ','
+    cp cyan "showing all users,  seperated by comma(,)"
+    getent passwd | cut -d: -f1 | tr '\n' ',' && echo "\n"
   elif [ "$_showUsers" = "S" ] || [ "$_showUsers" = "s" ]; then
-    cp gray "showing all system users,  seperated by comma(,)"
-    getent passwd | awk -F: '$3 < 1000 {print $1}' | tr '\n' ','
+    cp cyan "showing all system users,  seperated by comma(,)"
+    getent passwd | awk -F: '$3 < 1000 {print $1}' | tr '\n' ',' && echo "\n"
   elif [ "$_showUsers" = "H" ] || [ "$_showUsers" = "h" ]; then
-    cp gray "showing all human users, seperated by comma(,)"
-    getent passwd | awk -F: '$3 >=1000 {print $1}' | tr '\n' ','
+    cp cyan "showing all human users, seperated by comma(,)"
+    getent passwd | awk -F: '$3 >=1000 {print $1}' | tr '\n' ',' && echo "\n"
   fi
 
   echo "\n"
@@ -105,7 +105,7 @@ add_user_to_group(){
   read _showgrps
   if [ "$_showgrps" = "A" ] || [ "$_showgrps" = "a" ]; then
     cp cyan "Showing available groups on system, seperated by comma(,)"
-    cut -d: -f1 /etc/group | tr '\n' ','
+    cut -d: -f1 /etc/group | tr '\n' ',' && echo "\n"
   fi
 
   echo "\n"
@@ -114,7 +114,7 @@ add_user_to_group(){
 
   cp cyan "Enter user you want to add group $_addToGroup"
   read _userToAdd
-  
+
   echo "\n"
   cp cyan "Adding $_userToAdd to group $_addToGroup"
   sudo usermod -aG $_addToGroup $_userToAdd && \
