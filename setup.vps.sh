@@ -100,17 +100,22 @@ add_user_to_group(){
     getent passwd | awk -F: '$3 >=1000 {print $1}' | tr '\n' ','
   fi
 
+  echo "\n"
   cp cyan "Show available groups on system ? (y/n)"
-  if [ "$_showUsers" = "A" ] || [ "$_showUsers" = "a" ]; then
+  read _showgrps
+  if [ "$_showgrps" = "A" ] || [ "$_showgrps" = "a" ]; then
     cp cyan "Showing available groups on system, seperated by comma(,)"
     cut -d: -f1 /etc/group | tr '\n' ','
   fi
+
   echo "\n"
   cp cyan "Enter group you want to add user to"
   read _addToGroup
 
   cp cyan "Enter user you want to add group $_addToGroup"
   read _userToAdd
+  
+  echo "\n"
   cp cyan "Adding $_userToAdd to group $_addToGroup"
   sudo usermod -aG $_addToGroup $_userToAdd && \
   cp green "User $_userToAdd added successfully to group $_addToGroup" || 
