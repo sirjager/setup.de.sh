@@ -40,12 +40,14 @@ create_new_user(){
   read _newusername
   CURRENT_USER=$_newusername
   sudo adduser $_newusername && cp green "User $_newusername created successfully" || cp red "Something went wrong. User $_newusername not created" 
+  echo "\n"
 }
 
 change_user_password(){
   cp cyan "Enter username for user you want to change password"
   read _changePassForUser
   sudo passwd $_changePassForUser && cp green "Password for $_changePassForUser changed successfully" || cp red "Something went wrong. Password for user $_changePassForUser may not have changed" 
+  echo "\n"
 }
 
 delete_user(){
@@ -59,6 +61,7 @@ delete_user(){
     userdel -r $_delUsername && \
     cp green "User $_delUsername deleted successfully" || \
     cp red "Something went wrong. $_delUsername might not have deleted and may not work properly" 
+    echo "\n"
 }
 
 install_prerequisite(){
@@ -70,6 +73,7 @@ install_prerequisite(){
   sudo apt-get install -y curl software-properties-common ca-certificates apt-transport-https git neovim && \
   cp green "Successfully installed Prerequisite Packages" || \
   cp red "Something went wrong Prerequisite Packages might not have installed properly"
+  echo "\n"
 }
 
 update_system(){
@@ -77,6 +81,7 @@ update_system(){
   sudo apt-get update -y
   sudo apt-get upgrade -y && \
   cp green "System updated sucessfully"
+  echo "\n"
 }
 
 add_user_to_group(){
@@ -85,28 +90,32 @@ add_user_to_group(){
   cp cyan "Show human  created users (press: h)"
   read _showUsers
   if [ "$_showUsers" = "A" ] || [ "$_showUsers" = "a" ]; then
-    cp gray "showing all users"
-    getent passwd | cut -d: -f1
+    cp gray "showing all users,  seperated by comma(,)"
+    getent passwd | cut -d: -f1 | tr '\n' ','
   elif [ "$_showUsers" = "S" ] || [ "$_showUsers" = "s" ]; then
-    cp gray "showing all system users"
-    getent passwd | awk -F: '$3 < 1000 {print $1}'
+    cp gray "showing all system users,  seperated by comma(,)"
+    getent passwd | awk -F: '$3 < 1000 {print $1}' | tr '\n' ','
   elif [ "$_showUsers" = "H" ] || [ "$_showUsers" = "h" ]; then
-    cp gray "showing all human users"
-    getent passwd | awk -F: '$3 >=1000 {print $1}'
+    cp gray "showing all human users, seperated by comma(,)"
+    getent passwd | awk -F: '$3 >=1000 {print $1}' | tr '\n' ','
   fi
-  
-  cp cyan "Showing available groups on system"
-  cut -d: -f1 /etc/group
 
+  cp cyan "Show available groups on system ? (y/n)"
+  if [ "$_showUsers" = "A" ] || [ "$_showUsers" = "a" ]; then
+    cp cyan "Showing available groups on system, seperated by comma(,)"
+    cut -d: -f1 /etc/group | tr '\n' ','
+  fi
+  echo "\n"
   cp cyan "Enter group you want to add user to"
   read _addToGroup
+
   cp cyan "Enter user you want to add group $_addToGroup"
   read _userToAdd
-  
   cp cyan "Adding $_userToAdd to group $_addToGroup"
   sudo usermod -aG $_addToGroup $_userToAdd && \
   cp green "User $_userToAdd added successfully to group $_addToGroup" || 
   cp red "Something went wrong. $_userToAdd might not have been added to group $_addToGroup" 
+  echo "\n"
 }
 
 install_docker(){
@@ -142,6 +151,7 @@ install_docker(){
   fi
 
   cp green "Docker successfully installed and configured."
+  echo "\n"
 }
 
 install_portainer(){
@@ -160,6 +170,7 @@ install_portainer(){
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v $poratiner_vol_name:/data portainer/portainer-ce:latest && \
   cp green "Portainer is running on port: 9443"
+  echo "\n"
 }
 
 
@@ -197,6 +208,7 @@ setup_fresh_install(){
         install_docker
       fi
   fi
+  echo "\n"
 }
 
 while true; do
