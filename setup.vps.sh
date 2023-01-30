@@ -199,31 +199,33 @@ setup_fresh_install(){
   fi
 }
 
-
-cp red "This script is only for ubuntu based systems. Running in systems other than ubuntu may or may not work properly"; echo '\n\n\n';
-cp orange "press: 0 for : Setup freshly installed system"
-cp orange "press: 1 for : Update system"
-cp orange "press: 2 for : Install prerequisite packages (curl git nano neovim ...)"
-cp orange "press: 3 for : Create new user"
-cp orange "press: 4 for : Change user password"
-cp orange "press: 5 for : Delete existing user"
-cp orange "press: 6 for : Add user to group"
-cp orange "press: 7 for : Install and configure Docker (for running containerized applications)"
-cp orange "press: 8 for : Install Portainer (Web interface for managing Docker)"
-
-cp green "What you want to do ? (options: 0-8)"
-read _action
-case "$_action" in
-  "0") setup_fresh_install ;;
-  "1") update_system ;;
-  "2") install_prerequisite ;;
-  "3") create_new_user ;;
-  "4") change_user_password ;;
-  "5") delete_user ;;
-  "6") add_user_to_group ;;
-  "7") install_docker ;;
-  "8") install_portainer ;;
-  *) cp red "Invalid option. exiting script"; exit 1 ;;
-esac
-
-exit 0
+while true; do
+  cp red "This script is only for ubuntu based systems."
+  cp red "Running in systems other than ubuntu may or may not work properly"; echo '\n';
+  cp orange "press: 0 for : Setup freshly installed system"
+  cp orange "press: 1 for : Update system"
+  cp orange "press: 2 for : Install prerequisite packages (curl git nano neovim ...)"
+  cp orange "press: 3 for : Create new user"
+  cp orange "press: 4 for : Change user password"
+  cp orange "press: 5 for : Delete existing user"
+  cp orange "press: 6 for : Add user to group"
+  cp orange "press: 7 for : Install and configure Docker (for running containerized applications)"
+  cp orange "press: 8 for : Install Portainer (Web interface for managing Docker)"
+  cp cyan   "press: 9 for : Exit Script"
+  echo "\n"
+  cp green "What you want to do ? (options: 0-8)"
+  read _action
+  case "$_action" in
+    "0") setup_fresh_install ;;
+    "1") update_system ;;
+    "2") install_prerequisite ;;
+    "3") create_new_user ;;
+    "4") change_user_password ;;
+    "5") delete_user ;;
+    "6") add_user_to_group ;;
+    "7") install_docker ;;
+    "8") install_portainer ;;
+    "9") cp green "Exiting script"; exit 0 ;;
+    *) cp red "invalid option"; echo "\n" ;;
+  esac
+done
