@@ -54,9 +54,9 @@ delete_user(){
     cp cyan "Enter user you want to delete"
     read _delUsername
     cp red "killing all user's running processes" && \
-    sudo killall -u _delUsername && \
+    sudo killall -u $_delUsername && \
     cp red "removing user's home directory and mail spool" && \
-    userdel -r _delUsername && \
+    userdel -r $_delUsername && \
     cp green "User $_delUsername deleted successfully" || \
     cp red "Something went wrong. $_delUsername might not have deleted and may not work properly" 
 }
