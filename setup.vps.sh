@@ -138,7 +138,7 @@ install_docker(){
   #        16.04.1~ce~4-0~ubuntu 500
   #             500 https://download.docker.com/linux/ubuntubionic/stableamd64packages
   cp cyan "Installing Docker"
-  sudo apt install docker-ce -y
+  sudo apt-get install docker-ce docker-compose-plugin -y
   # Enable Docker service on system startup
   cp green "It is recommended to start docker service on system startup"
   cp cyan "Enable docker service on system startup ? (y/n)"
@@ -154,6 +154,7 @@ install_docker(){
     cp cyan "Adding $(CURRENT_USER) to Docker for using docker commands without sudo"
     sudo usermod -aG docker $(CURRENT_USER)
   fi
+
 
   cp green "Docker successfully installed and configured."
   echo "\n"
