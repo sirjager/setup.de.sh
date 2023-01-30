@@ -231,6 +231,7 @@ while true; do
   cp orange "press: 8 for : Install Portainer (Web interface for managing Docker)"
   cp cyan   "press: 9 for : Exit Script"
   echo "\n"
+  cp green "Now tell me $(whoami)"
   cp green "What you want to do ? (options: 0-8)"
   read _action
   case "$_action" in
