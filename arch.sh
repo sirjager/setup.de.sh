@@ -1,6 +1,6 @@
 #!/bin/bash
 
-applyDotFiles() {
+apply_dot_files() {
   git clone --bare https://github.com/sirjager/.dots "$HOME/.dots"
   if ! git --git-dir="$HOME/.dots" --work-tree="$HOME" checkout; then
     echo "Error: git checkout failed"
@@ -11,14 +11,18 @@ applyDotFiles() {
 
 install_packages() {
   sudo pacman -S \
-  python-pip neofetch nautilus neovim kitty plank \
+  python-pip docker docker-compose neofetch nautilus neovim kitty plank \
   xclip light mpv feh \
   -y --needed
+
+  sudo systemctl enable --now docker
+  sudo usermod -aG docker $USER
+  sudo chmod 666 /var/run/docker.sock
 }
 
 build_aur_packages() {
   pamac build timeshift \
-  extension-manager \
+  extension-manager appimagelauncher \
   visual-studio-code-bin google-chrome brave-bin \
   ulauncher \
   --no-confirm
@@ -143,7 +147,7 @@ while true; do
 
   case "$choice" in
     0)
-      applyDotFiles
+      apply_dot_files
       setup_zsh_shell
       register_aliases
       install_packages
@@ -154,7 +158,7 @@ while true; do
       break
       ;;
     1)
-      applyDotFiles
+      apply_dot_files
       break
       ;;
     2)
