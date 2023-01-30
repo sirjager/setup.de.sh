@@ -217,21 +217,36 @@ setup_fresh_install(){
   echo "\n"
 }
 
+
+change_hostname(){
+  echo "\n"
+  cp cyan "Showing Host info"
+  hostnamectl
+  echo "Enter new hostname"
+  read _newHostname
+  sudo hostnamectl set-hostname $_newHostname && cp green "Hostname updated to $_newHostname successfully" || cp red "Something went wrong. Hostname might not have updated"
+  echo "\n"
+  cp cyan "Updated Host info"
+  echo "\n"
+}
+
+
 while true; do
   echo "\n\n"
   cp red "This script is only for ubuntu based systems."
   cp red "Running in systems other than ubuntu may or may not work properly";
   cp geen "logged in as : $(whoami)"
-  cp orange "press: 0 for : Setup freshly installed system"
-  cp orange "press: 1 for : Update system"
-  cp orange "press: 2 for : Install prerequisite packages (curl git nano neovim ...)"
-  cp orange "press: 3 for : Create new user (recommended to avoid using root user)"
-  cp orange "press: 4 for : Change user password"
-  cp orange "press: 5 for : Delete existing user"
-  cp orange "press: 6 for : Add user to group"
-  cp orange "press: 7 for : Install and configure Docker (for running containerized applications)"
-  cp orange "press: 8 for : Install Portainer (Web interface for managing Docker)"
-  cp cyan   "press: 9 for : Exit Script"
+  cp orange "press: 0  for : Setup freshly installed system"
+  cp orange "press: 1  for : Update system"
+  cp orange "press: 2  for : Install prerequisite packages (curl git nano neovim ...)"
+  cp orange "press: 3  for : Create new user (recommended to avoid using root user)"
+  cp orange "press: 4  for : Change user password"
+  cp orange "press: 5  for : Delete existing user"
+  cp orange "press: 6  for : Add user to group"
+  cp orange "press: 7  for : Install and configure Docker (for running containerized applications)"
+  cp orange "press: 8  for : Install Portainer (Web interface for managing Docker)"
+  cp orange "press: 9  for : Change hostname"
+  cp cyan   "press: 10 for : Exit Script"
   echo "\n"
   cp green "Now tell me $(whoami)"
   cp green "What you want to do ? (options: 0-8)"
@@ -246,7 +261,8 @@ while true; do
     "6") add_user_to_group ;;
     "7") install_docker ;;
     "8") install_portainer ;;
-    "9") cp green "Exiting script"; exit 0 ;;
+    "9") change_hostname ;;
+    "10") cp green "Exiting script"; exit 0 ;;
     *) cp red "invalid option"; echo "\n" ;;
   esac
 done
