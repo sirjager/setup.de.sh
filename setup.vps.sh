@@ -67,7 +67,7 @@ install_prerequisite(){
   # software-properties-common – adds scripts to manage the software
   # ca-certificates – lets the web browser and system check security certificates
   # apt-transport-https – lets the package manager transfer files and data over https
-  sudo apt-get install -y curl software-properties-common ca-certificates apt-transport-https && \
+  sudo apt-get install -y curl software-properties-common ca-certificates apt-transport-https git neovim && \
   cp green "Successfully installed Prerequisite Packages" || \
   cp red "Something went wrong Prerequisite Packages might not have installed properly"
 }
@@ -202,7 +202,7 @@ setup_fresh_install(){
 while true; do
   echo "\n\n"
   cp red "This script is only for ubuntu based systems."
-  cp red "Running in systems other than ubuntu may or may not work properly"; echo '\n';
+  cp red "Running in systems other than ubuntu may or may not work properly";
   cp orange "press: 0 for : Setup freshly installed system"
   cp orange "press: 1 for : Update system"
   cp orange "press: 2 for : Install prerequisite packages (curl git nano neovim ...)"
